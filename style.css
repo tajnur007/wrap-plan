@@ -1,3 +1,16 @@
-h1 {
-  color: blueviolet;
+/* CSS Variables */
+:root {
+  --app-gray-light-color: #C1C3C5;
+  --app-gray-medium-color: #818283;
+  --app-gray-dark-color: #2D2D2D;
+  --app-white-color: #EAEDF3;
+}
+
+/* Reset Default HTML Properties */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans";
+  background-color: var(--app-gray-dark-color);
 }
