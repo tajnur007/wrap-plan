@@ -1,4 +1,4 @@
-{
+[
     {
         "name" : "Dog smile photo augmented reality filter for social media apps", 
         "client" : "John Trommbone Jr.",
@@ -38,7 +38,7 @@
         "name" : "Zero gravity pen", 
         "client" : "Aamir Khan",
         "create_on" : "12-29-2008",
-        "last_modified" : "12 hours ago".
+        "last_modified" : "12 hours ago",
         "status": "Completed"
     }
-}
+]

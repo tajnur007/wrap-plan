@@ -30,7 +30,7 @@
 }
 
 .card {
-  height: 192px;
+  min-height: 192px;
   padding: 24px 16px 8px;
   border-radius: 8px;
   gap: 16px;
