@@ -156,6 +156,7 @@
 .center { display: flex; justify-content: center; align-items: center; }
 .center-x { display: flex; justify-content: center; }
 .center-y { display: flex; align-items: center; }
+.flex-column { flex-direction: column; }
 
 .justify-start { justify-content: start; }
 .justify-end { justify-content: end; }
@@ -168,4 +169,5 @@
 /* Other Styles Start */
 .w-full { width: 100%; }
 .h-full { height: 100%; }
+.cursor-pointer { cursor: pointer; }
 /* Other Styles End */
