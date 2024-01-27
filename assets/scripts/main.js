@@ -1,6 +1,6 @@
 import jsonData from '../../resources/data.json' assert { type: 'json' };
 import timeData from '../../resources/time.json' assert { type: 'json' };
-import { DB_KEYS, PROJECT_STATUS } from './constants.js';
+import { BORDER_CLASSES, PROJECT_STATUS } from './constants.js';
 
 const newProjectContainerNode = document.getElementById('newProjectCardsContainer');
 const claimsGeneratedContainerNode = document.getElementById('claimsGeneratedCardsContainer');
@@ -8,38 +8,51 @@ const draftGeneratedContainerNode = document.getElementById('draftGeneratedCards
 const markedCompleteContainerNode = document.getElementById('markedCompleteCardsContainer');
 const startNewProjectNode = document.getElementById('addNewProjectCard');
 
-const DB = new Map();
-
-const initializeDb = () => {
-  Object.values(DB_KEYS).map(key => {
-    DB.set(key, []);
-  });
-};
-
-const loadDataFromJsonFileToDb = () => {
-  const newProjects = [];
-  const claimProjects = [];
-  const draftProjects = [];
-  const completeProjects = [];
-
+const loadDataFromJsonFileToDom = () => {
   jsonData.map(project => {
     if (project.status === PROJECT_STATUS.NEW) {
-      newProjects.push(project);
+      const card = generateCard(project, BORDER_CLASSES.NEW);
+      newProjectContainerNode.appendChild(card);
     } else if (project.status === PROJECT_STATUS.CLAIMS) {
-      claimProjects.push(project);
+      const card = generateCard(project, BORDER_CLASSES.CLAIMS);
+      claimsGeneratedContainerNode.appendChild(card);
     } else if (project.status === PROJECT_STATUS.DRAFT) {
-      draftProjects.push(project);
+      const card = generateCard(project, BORDER_CLASSES.DRAFT);
+      draftGeneratedContainerNode.appendChild(card);
     } else if (project.status === PROJECT_STATUS.COMPLETE) {
-      completeProjects.push(project);
+      const card = generateCard(project, BORDER_CLASSES.COMPLETE);
+      markedCompleteContainerNode.appendChild(card);
     }
   });
-
-  DB.set(DB_KEYS.NEW, newProjects);
-  DB.set(DB_KEYS.CLAIMS, claimProjects);
-  DB.set(DB_KEYS.DRAFT, draftProjects);
-  DB.set(DB_KEYS.COMPLETE, completeProjects);
 };
 
-initializeDb();
-loadDataFromJsonFileToDb();
-console.log('DB::', DB);
+const generateCard = (project, borderClass) => {
+  const card = document.createElement('div');
+
+  card.className = `card-container ${borderClass}`;
+  card.innerHTML = `
+    <div class="card h-full d-flex flex-column justify-between">
+      <h3 class="card-title">${project.name}</h3>
+      <div>
+        <p>
+          <span class="client-text">Client</span>
+          <span class="client-name d-inline-block ml-4">${project.client}</span>
+        </p>
+        <div class="d-flex justify-between mt-4">
+          <div>
+            <p class="date-text">Create on</p>
+            <p class="date">${project.create_on}</p>
+          </div>
+          <div>
+            <p class="date-text">Modified on</p>
+            <p class="date">${project.last_modified}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  return card;
+};
+
+loadDataFromJsonFileToDom();
