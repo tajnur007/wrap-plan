@@ -1,0 +1,68 @@
+#addNewProjectCard {
+  padding: 32px 56px;
+  margin-bottom: 24px;
+  height: 192px;
+  border-radius: 8px;
+  border: 1px solid var(--app-gray-medium-color);
+}
+
+.card-container {
+  padding: 1px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 2px 4px 6px 1px rgba(0, 0, 0, 0.25);
+}
+
+.new-project-border {
+  background: var(--app-gray-medium-color);
+}
+
+.claims-generated-border {
+  background: linear-gradient(0deg, #0038FF 0%, #4E5EE4 100%);
+}
+
+.draft-generated-border {
+  background: linear-gradient(0deg, #B26CD3 0%, #7000FF 100%);
+}
+
+.marked-complete-border {
+  background: #34B08B
+}
+
+.card {
+  height: 192px;
+  padding: 24px 16px 8px;
+  border-radius: 8px;
+  gap: 16px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 22px; 
+  color: var(--app-white-color);
+}
+
+.client-text {
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--app-gray-medium-color);
+}
+
+.client-name {
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--app-gray-light-color);
+}
+
+.date-text {
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--app-gray-medium-color);
+}
+
+.date {
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--app-gray-light-color);
+}
