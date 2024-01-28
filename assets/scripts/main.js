@@ -157,8 +157,8 @@ window.showActionBox = (actionBtnId, projectId, projectStatus) => {
     currentClickedActionBtnId = actionBtnId;
 
     actionDropdownNode.style.display = 'block';
-    actionDropdownNode.style.top = `${actionBtnPosition.y - 45}px`;
-    actionDropdownNode.style.left = `${actionBtnPosition.x - 120}px`;
+    actionDropdownNode.style.top = `${window.scrollY + actionBtnPosition.top - 45}px`;
+    actionDropdownNode.style.left = `${window.scrollX + actionBtnPosition.left - 120}px`;
 
     currentClickedProjectId = projectId;
     currentClickedProjectStatus = projectStatus;
@@ -167,6 +167,8 @@ window.showActionBox = (actionBtnId, projectId, projectStatus) => {
 
 window.updateProjectStatus = (targetedStatus) => {
   const delayTiming = getDelayTiming(targetedStatus);
+
+  currentClickedActionBtnId = null;
   actionDropdownNode.style.display = 'none';
 
   setTimeout(() => {
