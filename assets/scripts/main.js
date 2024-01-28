@@ -12,9 +12,7 @@ const claimsGeneratedCountNode = document.getElementById('claimsGeneratedCount')
 const draftGeneratedCountNode = document.getElementById('draftGeneratedCount');
 const markedCompleteCountNode = document.getElementById('markedCompleteCount');
 
-const startNewProjectNode = document.getElementById('addNewProjectCard');
 const createProjectModalNode = document.getElementById('createProjectModal');
-const modalCloseBtnNode = document.getElementById('modalCloseBtn');
 
 const newProjectsData = [];
 const claimsGeneratedData = [];
@@ -106,16 +104,13 @@ loadDataFromJsonFileToStore();
 loadDataFromStoreToDom();
 updateCounts();
 
-const openCreateProjectModal = () => {
+window.openCreateProjectModal = () => {
   createProjectModalNode.style.display = 'flex';
 };
 
-const closeCreateProjectModal = () => {
+window.closeCreateProjectModal = () => {
   createProjectModalNode.style.display = 'none';
 };
-
-startNewProjectNode.addEventListener('click', openCreateProjectModal);
-modalCloseBtnNode.addEventListener('click', closeCreateProjectModal);
 
 window.showActionBox = (projectId, projectStatus) => {
   console.log('Project:::', projectId, projectStatus);

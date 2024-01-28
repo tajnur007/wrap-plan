@@ -33,12 +33,12 @@
         <span id="newProjectCount" class="count d-inline-block ml-4">0</span>
       </p>
       <div id="newProjectCardsContainer">
-        <div id="addNewProjectCard" class="center flex-column cursor-pointer">
+        <div id="addNewProjectCard" class="center flex-column cursor-pointer" onclick="openCreateProjectModal()">
           <img src="./assets/icons/add-icon.svg" alt="add-icon">
           <p class="client-name mt-4">Start a new project</p>
         </div>
 
-        <div class="card-container new-project-border">
+        <!-- <div class="card-container new-project-border">
           <div class="card h-full d-flex flex-column justify-between">
             <h3 class="card-title">Dog smile photo augmented reality filter for social media apps</h3>
             <div class="three-dot center-y h-full" onclick="showActionBox('hello')">
@@ -65,7 +65,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </section>
@@ -97,7 +97,7 @@
     <div class="modal">
       <div class="my-4 mx-6 center-y justify-between">
         <h3>Create A New Project</h3>
-        <button id="modalCloseBtn" class="cross-btn">X</button>
+        <button id="modalCloseBtn" class="cross-btn" onclick="closeCreateProjectModal()">X</button>
       </div>
       <hr/>
       <div class="center flex-column mt-8">
