@@ -13,6 +13,8 @@ const draftGeneratedCountNode = document.getElementById('draftGeneratedCount');
 const markedCompleteCountNode = document.getElementById('markedCompleteCount');
 
 const createProjectModalNode = document.getElementById('createProjectModal');
+const projectTitleInputNode = document.getElementById('projectTitleInput');
+const clientNameInputNode = document.getElementById('clientNameInput');
 const actionDropdownNode = document.getElementById('actionDropdown');
 
 let newProjectsData = [];
@@ -40,7 +42,7 @@ const loadDataFromJsonFileToStore = () => {
     }
   });
 
-  numberOfTotalProjects = numberOfTotalProjects.length;
+  numberOfTotalProjects = jsonData.length;
 };
 
 const loadDataFromStoreToDom = () => {
@@ -143,7 +145,35 @@ window.openCreateProjectModal = () => {
 };
 
 window.closeCreateProjectModal = () => {
+  projectTitleInputNode.value = '';
+  clientNameInputNode.value = '';
   createProjectModalNode.style.display = 'none';
+};
+
+window.createNewProject = () => {
+  const projectTitle = projectTitleInputNode.value.trim();
+  const clientName = clientNameInputNode.value.trim();
+
+  if (!projectTitle || !clientName) {
+    alert('You must have to provide a project title and client name to create a new project');
+  } else {
+    const isoDate = new Date().toISOString();
+    const [year, month, day] = isoDate.substring(0, 10).split('-');
+
+    const newProject = {
+      id: numberOfTotalProjects,
+      name: projectTitle,
+      client: clientName,
+      create_on: `${day}-${month}-${year}`,
+      last_modified: "Just now",
+      status: "New Project"
+    };
+
+    newProjectsData.push(newProject);
+    numberOfTotalProjects++;
+    loadDataFromStoreToDom();
+    window.closeCreateProjectModal();
+  }
 };
 
 window.showActionBox = (actionBtnId, projectId, projectStatus) => {
