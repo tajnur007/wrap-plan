@@ -44,7 +44,14 @@ const loadDataFromJsonFileToStore = () => {
 };
 
 const loadDataFromStoreToDom = () => {
-  newProjectContainerNode.innerHTML = '';
+  const addNewProjectCard = `
+    <div id="addNewProjectCard" class="center flex-column cursor-pointer" onclick="openCreateProjectModal()">
+      <img src="./assets/icons/add-icon.svg" alt="add-icon">
+      <p class="client-name mt-4">Start a new project</p>
+    </div>
+  `;
+
+  newProjectContainerNode.innerHTML = addNewProjectCard;
   newProjectsData.forEach(project => {
     const card = generateCard(project, BORDER_CLASSES.NEW);
     newProjectContainerNode.appendChild(card);
