@@ -7,6 +7,8 @@ const claimsGeneratedContainerNode = document.getElementById('claimsGeneratedCar
 const draftGeneratedContainerNode = document.getElementById('draftGeneratedCardsContainer');
 const markedCompleteContainerNode = document.getElementById('markedCompleteCardsContainer');
 const startNewProjectNode = document.getElementById('addNewProjectCard');
+const createProjectModalNode = document.getElementById('createProjectModal');
+const modalCloseBtnNode = document.getElementById('modalCloseBtn');
 
 const loadDataFromJsonFileToDom = () => {
   jsonData.map(project => {
@@ -56,3 +58,14 @@ const generateCard = (project, borderClass) => {
 };
 
 loadDataFromJsonFileToDom();
+
+const openCreateProjectModal = () => {
+  createProjectModalNode.style.display = 'flex';
+};
+
+export const closeCreateProjectModal = () => {
+  createProjectModalNode.style.display = 'none';
+};
+
+startNewProjectNode.addEventListener('click', openCreateProjectModal);
+modalCloseBtnNode.addEventListener('click', closeCreateProjectModal);
