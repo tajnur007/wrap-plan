@@ -1,0 +1,36 @@
+.action-dropdown {
+  background-color: var(--app-gray-medium-color);
+  border-radius: 6px;
+  border: 1px solid var(--app-gray-light-color);
+  width: fit-content;
+  overflow: hidden;
+  box-shadow: 2px 2px 6px #00000099;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.action-dropdown > h4 {
+  font-size: 13px;
+  color: var(--app-gray-light-color);
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--app-gray-medium-color);
+  text-align: center;
+}
+
+.action-dropdown li {
+  font-size: 12px;
+  color: var(--app-gray-light-color);
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.action-dropdown li:hover {
+  font-size: 12px;
+  color: var(--app-gray-light-color);
+  padding: 2px 8px;
+  cursor: pointer;
+  background-color: #eaedf31b;
+}
