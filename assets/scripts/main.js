@@ -140,6 +140,14 @@ const getDelayTiming = (targetedStatus) => {
 loadDataFromJsonFileToStore();
 loadDataFromStoreToDom();
 
+document.addEventListener('click', (e) => {
+  if (e.target.id.includes('threeDot') || e.target.className.split(' ').includes('dot')) {
+  } else {
+    currentClickedActionBtnId = null;
+    actionDropdownNode.style.display = 'none';
+  }
+});
+
 window.openCreateProjectModal = () => {
   createProjectModalNode.style.display = 'flex';
 };
