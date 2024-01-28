@@ -74,6 +74,12 @@ h3 {
   animation-timing-function: ease-in;
 }
 
+.cross-btn {
+  padding: 3px !important;
+  height: 35px;
+  width: 35px;
+}
+
 .modal label {
   color: var(--app-gray-light-color);
   display: inline-block;
