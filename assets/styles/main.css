@@ -65,6 +65,10 @@ h3 {
   width: fit-content;
   overflow: hidden;
   box-shadow: 2px 2px 6px #00000099;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
 }
 
 .action-dropdown > h4 {
