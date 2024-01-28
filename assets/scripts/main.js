@@ -121,6 +121,20 @@ const updateCounts = () => {
   markedCompleteCountNode.innerText = markedCompleteData.length;
 };
 
+const getDelayTiming = (targetedStatus) => {
+  if (targetedStatus === PROJECT_STATUS.NEW) {
+    return timeData['New Project'];
+  } else if (targetedStatus === PROJECT_STATUS.CLAIMS) {
+    return timeData['Claims generated'];
+  } else if (targetedStatus === PROJECT_STATUS.DRAFT) {
+    return timeData['Draft generated'];
+  } else if (targetedStatus === PROJECT_STATUS.COMPLETE) {
+    return timeData['Complete'];
+  }
+
+  return 0;
+};
+
 loadDataFromJsonFileToStore();
 loadDataFromStoreToDom();
 
@@ -152,34 +166,38 @@ window.showActionBox = (actionBtnId, projectId, projectStatus) => {
 };
 
 window.updateProjectStatus = (targetedStatus) => {
-  let targetedProject;
-
-  if (currentClickedProjectStatus === PROJECT_STATUS.NEW) {
-    targetedProject = newProjectsData.find(project => project.id == currentClickedProjectId);
-    newProjectsData = newProjectsData.filter(project => project.id != currentClickedProjectId);
-  } else if (currentClickedProjectStatus === PROJECT_STATUS.CLAIMS) {
-    targetedProject = claimsGeneratedData.find(project => project.id == currentClickedProjectId);
-    claimsGeneratedData = claimsGeneratedData.filter(project => project.id != currentClickedProjectId);
-  } else if (currentClickedProjectStatus === PROJECT_STATUS.DRAFT) {
-    targetedProject = draftGeneratedData.find(project => project.id == currentClickedProjectId);
-    draftGeneratedData = draftGeneratedData.filter(project => project.id != currentClickedProjectId);
-  } else if (currentClickedProjectStatus === PROJECT_STATUS.COMPLETE) {
-    targetedProject = markedCompleteData.find(project => project.id == currentClickedProjectId);
-    markedCompleteData = markedCompleteData.filter(project => project.id != currentClickedProjectId);
-  }
-
-  targetedProject.status = targetedStatus;
-
-  if (targetedStatus === PROJECT_STATUS.NEW) {
-    newProjectsData.push(targetedProject);
-  } else if (targetedStatus === PROJECT_STATUS.CLAIMS) {
-    claimsGeneratedData.push(targetedProject);
-  } else if (targetedStatus === PROJECT_STATUS.DRAFT) {
-    draftGeneratedData.push(targetedProject);
-  } else if (targetedStatus === PROJECT_STATUS.COMPLETE) {
-    markedCompleteData.push(targetedProject);
-  }
-
+  const delayTiming = getDelayTiming(targetedStatus);
   actionDropdownNode.style.display = 'none';
-  loadDataFromStoreToDom();
+
+  setTimeout(() => {
+    let targetedProject;
+
+    if (currentClickedProjectStatus === PROJECT_STATUS.NEW) {
+      targetedProject = newProjectsData.find(project => project.id == currentClickedProjectId);
+      newProjectsData = newProjectsData.filter(project => project.id != currentClickedProjectId);
+    } else if (currentClickedProjectStatus === PROJECT_STATUS.CLAIMS) {
+      targetedProject = claimsGeneratedData.find(project => project.id == currentClickedProjectId);
+      claimsGeneratedData = claimsGeneratedData.filter(project => project.id != currentClickedProjectId);
+    } else if (currentClickedProjectStatus === PROJECT_STATUS.DRAFT) {
+      targetedProject = draftGeneratedData.find(project => project.id == currentClickedProjectId);
+      draftGeneratedData = draftGeneratedData.filter(project => project.id != currentClickedProjectId);
+    } else if (currentClickedProjectStatus === PROJECT_STATUS.COMPLETE) {
+      targetedProject = markedCompleteData.find(project => project.id == currentClickedProjectId);
+      markedCompleteData = markedCompleteData.filter(project => project.id != currentClickedProjectId);
+    }
+
+    targetedProject.status = targetedStatus;
+
+    if (targetedStatus === PROJECT_STATUS.NEW) {
+      newProjectsData.push(targetedProject);
+    } else if (targetedStatus === PROJECT_STATUS.CLAIMS) {
+      claimsGeneratedData.push(targetedProject);
+    } else if (targetedStatus === PROJECT_STATUS.DRAFT) {
+      draftGeneratedData.push(targetedProject);
+    } else if (targetedStatus === PROJECT_STATUS.COMPLETE) {
+      markedCompleteData.push(targetedProject);
+    }
+
+    loadDataFromStoreToDom();
+  }, 1000 * delayTiming);
 };
