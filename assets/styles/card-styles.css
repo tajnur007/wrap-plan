@@ -34,6 +34,7 @@
   padding: 24px 16px 8px;
   border-radius: 8px;
   gap: 16px;
+  position: relative;
 }
 
 .card-title {
@@ -65,4 +66,23 @@
   font-size: 12px;
   line-height: 14px;
   color: var(--app-gray-light-color);
+}
+
+.three-dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 8px;
+}
+
+.three-dot > div {
+  gap: 3px;
+  cursor: pointer;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid var(--app-gray-medium-color);
 }

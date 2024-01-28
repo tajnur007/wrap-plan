@@ -16,30 +16,46 @@ const startNewProjectNode = document.getElementById('addNewProjectCard');
 const createProjectModalNode = document.getElementById('createProjectModal');
 const modalCloseBtnNode = document.getElementById('modalCloseBtn');
 
-let numOfNewProjects = 0;
-let numOfClaimsGenerated = 0;
-let numOfDraftGenerated = 0;
-let numOfMarkedComplete = 0;
+const newProjectsData = [];
+const claimsGeneratedData = [];
+const draftGeneratedData = [];
+const markedCompleteData = [];
 
-const loadDataFromJsonFileToDom = () => {
-  jsonData.map(project => {
+const loadDataFromJsonFileToStore = () => {
+  jsonData.forEach((project, id) => {
+    const projectWithId = { id, ...project };
+
     if (project.status === PROJECT_STATUS.NEW) {
-      const card = generateCard(project, BORDER_CLASSES.NEW);
-      newProjectContainerNode.appendChild(card);
-      numOfNewProjects++;
+      newProjectsData.push(projectWithId);
     } else if (project.status === PROJECT_STATUS.CLAIMS) {
-      const card = generateCard(project, BORDER_CLASSES.CLAIMS);
-      claimsGeneratedContainerNode.appendChild(card);
-      numOfClaimsGenerated++;
+      claimsGeneratedData.push(projectWithId);
     } else if (project.status === PROJECT_STATUS.DRAFT) {
-      const card = generateCard(project, BORDER_CLASSES.DRAFT);
-      draftGeneratedContainerNode.appendChild(card);
-      numOfDraftGenerated++;
+      draftGeneratedData.push(projectWithId);
     } else if (project.status === PROJECT_STATUS.COMPLETE) {
-      const card = generateCard(project, BORDER_CLASSES.COMPLETE);
-      markedCompleteContainerNode.appendChild(card);
-      numOfMarkedComplete++;
+      markedCompleteData.push(projectWithId);
     }
+  });
+};
+
+const loadDataFromStoreToDom = () => {
+  newProjectsData.forEach(project => {
+    const card = generateCard(project, BORDER_CLASSES.NEW);
+    newProjectContainerNode.appendChild(card);
+  });
+
+  claimsGeneratedData.forEach(project => {
+    const card = generateCard(project, BORDER_CLASSES.CLAIMS);
+    claimsGeneratedContainerNode.appendChild(card);
+  });
+
+  draftGeneratedData.forEach(project => {
+    const card = generateCard(project, BORDER_CLASSES.DRAFT);
+    draftGeneratedContainerNode.appendChild(card);
+  });
+
+  markedCompleteData.forEach(project => {
+    const card = generateCard(project, BORDER_CLASSES.COMPLETE);
+    markedCompleteContainerNode.appendChild(card);
   });
 };
 
@@ -50,6 +66,13 @@ const generateCard = (project, borderClass) => {
   card.innerHTML = `
     <div class="card h-full d-flex flex-column justify-between">
       <h3 class="card-title">${project.name}</h3>
+      <div class="three-dot center-y h-full" onclick="showActionBox('${project.id}, ${project.status}')">
+        <div class="d-flex flex-column px-1">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
       <div>
         <p>
           <span class="client-text">Client</span>
@@ -73,22 +96,27 @@ const generateCard = (project, borderClass) => {
 };
 
 const updateCounts = () => {
-  newProjectCountNode.innerText = numOfNewProjects;
-  claimsGeneratedCountNode.innerText = numOfClaimsGenerated;
-  draftGeneratedCountNode.innerText = numOfDraftGenerated;
-  markedCompleteCountNode.innerText = numOfMarkedComplete;
+  newProjectCountNode.innerText = newProjectsData.length;
+  claimsGeneratedCountNode.innerText = claimsGeneratedData.length;
+  draftGeneratedCountNode.innerText = draftGeneratedData.length;
+  markedCompleteCountNode.innerText = markedCompleteData.length;
 };
 
-loadDataFromJsonFileToDom();
+loadDataFromJsonFileToStore();
+loadDataFromStoreToDom();
 updateCounts();
 
 const openCreateProjectModal = () => {
   createProjectModalNode.style.display = 'flex';
 };
 
-export const closeCreateProjectModal = () => {
+const closeCreateProjectModal = () => {
   createProjectModalNode.style.display = 'none';
 };
 
 startNewProjectNode.addEventListener('click', openCreateProjectModal);
 modalCloseBtnNode.addEventListener('click', closeCreateProjectModal);
+
+window.showActionBox = (projectId, projectStatus) => {
+  console.log('Project:::', projectId, projectStatus);
+};
