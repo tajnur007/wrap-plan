@@ -1,22 +1,37 @@
+/**
+ * All imports (File Data, Utility Functions, Constants and Others)
+ */
 import jsonData from '../../resources/data.json' assert { type: 'json' };
 import timeData from '../../resources/time.json' assert { type: 'json' };
 import { BORDER_CLASSES, PROJECT_STATUS } from './constants.js';
 
+/**
+ * Project card container DOM elements
+ */
 const newProjectContainerNode = document.getElementById('newProjectCardsContainer');
 const claimsGeneratedContainerNode = document.getElementById('claimsGeneratedCardsContainer');
 const draftGeneratedContainerNode = document.getElementById('draftGeneratedCardsContainer');
 const markedCompleteContainerNode = document.getElementById('markedCompleteCardsContainer');
 
+/**
+ * Project count DOM elements
+ */
 const newProjectCountNode = document.getElementById('newProjectCount');
 const claimsGeneratedCountNode = document.getElementById('claimsGeneratedCount');
 const draftGeneratedCountNode = document.getElementById('draftGeneratedCount');
 const markedCompleteCountNode = document.getElementById('markedCompleteCount');
 
+/**
+ * Create new project modal and action dropdown related DOM elements
+ */
 const createProjectModalNode = document.getElementById('createProjectModal');
 const projectTitleInputNode = document.getElementById('projectTitleInput');
 const clientNameInputNode = document.getElementById('clientNameInput');
 const actionDropdownNode = document.getElementById('actionDropdown');
 
+/**
+ * Local variables to store project data and track user behaviors
+ */
 let newProjectsData = [];
 let claimsGeneratedData = [];
 let draftGeneratedData = [];
@@ -27,6 +42,10 @@ let currentClickedActionBtnId = null;
 let currentClickedProjectId = null;
 let currentClickedProjectStatus = null;
 
+/**
+ * Will iterate over project data which is taking from JSON file
+ * and store the data with an individual ID according to their status 
+ */
 const loadDataFromJsonFileToStore = () => {
   jsonData.forEach((project, id) => {
     const projectWithId = { id, ...project };
@@ -45,6 +64,11 @@ const loadDataFromJsonFileToStore = () => {
   numberOfTotalProjects = jsonData.length;
 };
 
+/**
+ * Will add project cards into DOM
+ * Procedure: Clear the cards container first and then append each card
+ * as a child element with project info
+ */
 const loadDataFromStoreToDom = () => {
   const addNewProjectCard = `
     <div id="addNewProjectCard" class="center flex-column cursor-pointer" onclick="openCreateProjectModal()">
@@ -80,6 +104,12 @@ const loadDataFromStoreToDom = () => {
   updateCounts();
 };
 
+/**
+ * This will generate a project card with given params info
+ * @param {ProjectData} project - Stored project data
+ * @param {string} borderClass - Predefined border class
+ * @returns Card element
+ */
 const generateCard = (project, borderClass) => {
   const card = document.createElement('div');
 
@@ -116,6 +146,9 @@ const generateCard = (project, borderClass) => {
   return card;
 };
 
+/**
+ * This method will update the number of projects into a particular section
+ */
 const updateCounts = () => {
   newProjectCountNode.innerText = newProjectsData.length;
   claimsGeneratedCountNode.innerText = claimsGeneratedData.length;
@@ -123,6 +156,11 @@ const updateCounts = () => {
   markedCompleteCountNode.innerText = markedCompleteData.length;
 };
 
+/**
+ * This will return a delay timing according to project status
+ * @param {string} targetedStatus - The status into a project status field
+ * @returns A number which is given into time.json file
+ */
 const getDelayTiming = (targetedStatus) => {
   if (targetedStatus === PROJECT_STATUS.NEW) {
     return timeData['New Project'];
@@ -137,9 +175,15 @@ const getDelayTiming = (targetedStatus) => {
   return 0;
 };
 
+/**
+ * Loading project cards into DOM
+ */
 loadDataFromJsonFileToStore();
 loadDataFromStoreToDom();
 
+/**
+ * Event handler to control outside click of action dropdown
+ */
 document.addEventListener('click', (e) => {
   if (e.target.id.includes('threeDot') || e.target.className.split(' ').includes('dot')) {
   } else {
@@ -148,16 +192,25 @@ document.addEventListener('click', (e) => {
   }
 });
 
+/**
+ * Event handler to open Create New Project modal
+ */
 window.openCreateProjectModal = () => {
   createProjectModalNode.style.display = 'flex';
 };
 
+/**
+ * Event handler to close Create New Project modal
+ */
 window.closeCreateProjectModal = () => {
   projectTitleInputNode.value = '';
   clientNameInputNode.value = '';
   createProjectModalNode.style.display = 'none';
 };
 
+/**
+ * Event handler to insert a new project with given inputs
+ */
 window.createNewProject = () => {
   const projectTitle = projectTitleInputNode.value.trim();
   const clientName = clientNameInputNode.value.trim();
@@ -184,6 +237,13 @@ window.createNewProject = () => {
   }
 };
 
+/**
+ * This event handler will show the action dropdown by tracking the current 
+ * clicked location into DOM
+ * @param {string} actionBtnId - Clicked action button ID 
+ * @param {string} projectId - Clicked project's ID
+ * @param {string} projectStatus - Clicked project's Status
+ */
 window.showActionBox = (actionBtnId, projectId, projectStatus) => {
   if (currentClickedActionBtnId === actionBtnId) {
     currentClickedActionBtnId = null;
@@ -203,6 +263,10 @@ window.showActionBox = (actionBtnId, projectId, projectStatus) => {
   }
 };
 
+/**
+ * This event handler will update a project's status
+ * @param {string} targetedStatus - Selected project section's status
+ */
 window.updateProjectStatus = (targetedStatus) => {
   const delayTiming = getDelayTiming(targetedStatus);
 
